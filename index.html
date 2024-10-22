@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hola Mundo</title>
+</head>
+<body>
+    <h1>Ejemplo de llamado a Node</h1>
+    <input type="text" id="nombre" placeholder="Tu nombre">
+    <button onclick="saludar()">Enviar</button>
+
+    <p id="resultado"></p>
+
+    <script>
+        function saludar() {
+            const nombre = document.getElementById('nombre').value;
+            const url = `http://127.0.0.1:3000/api/holaMundo?nombre=${encodeURIComponent(nombre)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('resultado').innerText = data.mensaje;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('resultado').innerText = 'Error al obtener respuesta del servidor.';
+                });
+        }
+    </script>
+</body>
+</html>
